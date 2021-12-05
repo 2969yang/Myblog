@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body{
+            padding:0;
+            margin:0;
+        }
+        .col-md-offset-2 {
+            margin-left: 50.666667%;
+        }
+        .btn {
+            padding: 6px 50px;
+            border-radius: 9px;
+            background-color: #3e3e3e !important;
+        }
+        #bg{width:100%;height:100%;position:absolute;z-index:-1;opacity: 0.8}
+        #login{position:absolute;left:22.5%;top:40%;margin-left:-150px;margin-top:-100px; }
+    </style>
+</head>
+<body>
+<div class="container" id="login">
+    <div class="row">
+        <div class="text-center"><h3> Please Login</h3></div>
+    </div>
+    <div class="row table-bordered">
+        <div class="col-md-6">
+            <h3 class="text-center text-capitalize"> my blog </h3>
+            <p>记录点滴，记录成长，Adobe LiveCycle Document Security Server提供了在PDF表单和文档中支持的文档加密和数字签名服务。Adobe LiveCycle Document
+                Security Server provides services for document encryption and digital signature support on PDF forms and
+                documents</p>
+            <blockquote class="blockquote-reverse">
+                <p>stay hungry stay foolish<cite title="lincoln">————Ahrabam Lincoln</cite></p>
+            </blockquote>
+        </div>
+        <div class="col-md-6">
+            <br>
+            <form action="/login" method="POST" role="form" class=" form-horizontal">
+                <div class="form-group has-feedback">
+                    <label for="username" class="control-label col-md-2">account：</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="BACKGROUND-COLOR: transparent;">@</span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="account" style="BACKGROUND-COLOR: transparent;"
+                                   aria-describedby="EmailHelp" autofocus required>
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span class="help-block sr-only" id="EmailHelp">Correct account</span>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label for="password" class="control-label col-md-2">Password：</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="BACKGROUND-COLOR: transparent;">&nbsp;=&nbsp;</span>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   style="BACKGROUND-COLOR: transparent;" placeholder="Password">
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-offset-2">
+                    <div>
+                        <div class="text-danger col offset-2"><%=msg%> </div>
+                    </div>
+                    <div class="form-inline">
+                        <button type="submit" class="btn btn-primary" style="BACKGROUND-COLOR: transparent;">登录</button>
+                    </div>
+                    <div>
+                        <a href="/" class="text-secondary card-link">点击此处，返回首页</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<img id="bg" src="/img/3.jpg" alt="..." class="img-rounded img-responsive">
+</body>
+</html>

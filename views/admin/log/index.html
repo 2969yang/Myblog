@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1658828_vud4w73neg.css">
+    <link rel="stylesheet" href="/admin/css/style.css">
+</head>
+
+<body class="bg-light">
+    <%- include('../header.html')  -%>
+
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <%- include('../navs.html') -%> 
+            <div class="col-10">
+                <div class="p-3 border mb-3 bg-white">
+                    <h4 class="mb-0">查看日志</h4>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                <h6 class="mb-0 align-self-center">日志列表</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>操作</th>
+                                            <th>IP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% page.list.forEach(log => { %>
+                                         
+                                       
+                                        <tr>
+                                            <td><%= log.time.toLocaleString()%> </td>
+                                            <td><%= log.handle%></td>
+                                            <td><%= log.ip%></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                
+                                <nav class="d-flex justify-content-between border-top pt-3 px-3">
+                                    <div class="align-self-center">共 <%= page.count%> 条 / 共 <%= page.total%> 页 / 第 <%= page.p%> 页</div>
+                                    <ul class="pagination mb-0">
+                                        <% if (page.p > 1) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/log?p=<%=page.p-1%>">上一页</a></li>
+                                            <% } %>
+                                            <% for( let index = 1; index <= page.total; index++ ) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/log?p=<%=index%>"><%= index %> </a></li>
+                                            <% } %>
+                                            <% if (page.p < page.total) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/log?p=<%=parseInt(page.p)+1%>">下一页</a></li>
+                                            <% } %>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.5.12/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
+    <script src="/admin/js/public.js"></script>
+</body>
+
+</html>

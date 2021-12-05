@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1658828_vud4w73neg.css">
+    <link rel="stylesheet" href="/admin/css/style.css">
+</head>
+<style>
+    .toast{
+        margin: -600px 0px 0px 1200px;
+    }
+</style>
+
+<body class="bg-light">
+    <%- include('../header.html')  -%>
+
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <%- include('../navs.html') -%> 
+            <div class="col-10">
+                <div class="p-3 border mb-3 bg-white">
+                    <h4 class="mb-0">类目管理</h4>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                <h6 class="mb-0 align-self-center">类目列表</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>排序</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% categories.forEach(category => { %>
+                                        <tr>
+                                            <th><%=category.id%></th>
+                                            <td title="双击修改"><input type="text" name="name" value="<%=category.name%>"
+                                                    class="form-control text-center bg-white border-0 dbcedit"
+                                                    onchange="setname(<%=category.id%>,this.value)" disabled>
+                                            </td>
+                                            <td title="双击修改"><input type="text" name="index" value="<%=category.index%>"
+                                                    class="form-control text-center bg-white border-0 dbcedit"
+                                                    onchange="setindex(<%=category.id%>,this.value)" disabled>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-link text-danger" onclick="del(<%=category.id%>)"><i class="iconfont icon-delete"></i>删除</button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>新增</th>
+                                            <td><input type="text" name="name" value=""
+                                                    class="form-control text-center bg-white"></td>
+                                            <td><input type="text" name="index" value=""
+                                                    class="form-control text-center bg-white"></td>
+                                            <td>
+                                                <button class="btn btn-link text-primary" onclick="save(this)"><i class="iconfont icon-bianji"></i>保存</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.5.12/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
+    <script src="/admin/js/public.js"></script>
+    <script>
+        function setname(id, name) {
+            $.post('/admin/category/setname',{id:id,name:name},function(res){
+                if (res.code == 1) {
+                    showToasts('成功', '修改类目名称成功')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 3000)
+                } else {
+                    showToasts('失败', '修改类目名称失败')
+                }
+            })
+        }
+
+        function setindex(id, index) {
+            $.post('/admin/category/setindex',{id:id,index:index},function(res){
+                if (res.code == 1) {
+                    showToasts('成功', '修改类目索引成功')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 3000)
+                } else {
+                    showToasts('失败', '修改类目索引失败')
+                }
+            })
+        }
+
+        function save(t){
+            let name = $(t).parents('tr').find("[name='name']").val()
+            let index = $(t).parents('tr').find("[name='index']").val()
+            console.log(name,index)
+
+            $.post('/admin/category/add', { name: name, index: index }, function (res) {
+                if (res.code == 1) {
+                    showToasts('成功', '添加类目成功')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 3000)
+                } else {
+                    showToasts('失败', '添加类目失败')
+                }
+            })
+        }
+
+        function del(id){
+            if(confirm('确认删除?')){
+                $.getJSON('/admin/category/del', { id: id }, function (res) {
+                    if (res.code == 1) {
+                        showToasts('成功', '删除类目成功')
+                        setTimeout(function () {
+                            location.reload()
+                        }, 3000)
+                    } else {
+                        showToasts('失败', '删除类目失败')
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

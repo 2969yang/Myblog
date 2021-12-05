@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1658828_vud4w73neg.css">
+    <link rel="stylesheet" href="/admin/css/style.css">
+</head>
+<style>
+    .toast{
+        margin: -600px 0px 0px 1200px;
+    }
+</style>
+
+<body class="bg-light">
+    <%- include('../header.html') -%> 
+
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <%- include('../navs.html') -%> 
+            <div class="col-10">
+                <div class="p-3 border mb-3 bg-white">
+                    <h4 class="mb-0">文章管理</h4>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                <h6 class="mb-0 align-self-center">文章列表</h6>
+                            </div>
+                            <div class="card-body">
+                                <form action="/admin/article/" class="form-inline mb-3" method="get">
+                                    <input type="hidden" name="p" value="<%= page.p %>">
+                                    <div class="form-group">
+                                        <label for="category">类目：</label>
+                                        <select name="category_id" id="category" class="form-control-sm">
+                                            <option value="-1">全部</option>
+                                            <% categories.forEach(category => { %>
+                                                <option value="<%= category.id %>" <%= category_id==category.id ? 'selected' : '' %>><%= category.name %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group ml-3">
+                                        <label for="hot">热门：</label>
+                                        <select name="hot" id="hot" class="form-control-sm">
+                                            <option value="-1">全部</option>
+                                            <option value="1" <%= hot==='1' ? 'selected' : '' %>>热门</option>
+                                            <option value="0" <%= hot==='0' ? 'selected' : '' %>>非热门</option>
+                                        </select>
+                                    </div>
+                                    <div class="from-group ml-3">
+                                        <input type="submit" value="筛选" class="btn btn-primary btn-sm">
+                                    </div>
+                                    <div class="form-group ml-auto">
+                                        <a href="/admin/article/add" class="btn btn-danger btn-sm">发表博文</a>
+                                    </div>
+                                </form>
+                                <table class="table table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>标题</th>
+                                            <th>缩略图</th>
+                                            <th>热门推荐</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% page.list.forEach(article =>{ %> 
+                                        <tr>
+                                            <th><%= article.id %> </th>
+                                            <td><%= article.title %></td>
+                                            <td>
+                                                <% if (article.thumbnail) { %>
+                                                    <i class="iconfont icon-photo" data-toggle="popover"
+                                                        data-content="<img src='<%= article.thumbnail %> ' width='200'>"></i>
+    
+                                                    <% } %>
+                                            </td>
+                                            <td>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        value="<%=article.id%>" id="hot<%=article.id%>"
+                                                        <%= article.hot?'checked':'' %>
+                                                        onchange="sethot(this.value,this.checked)">
+                                                    <label class="custom-control-label"
+                                                        for="hot<%=article.id%>"></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="/admin/article/edit/<%=article.id%>" class="text-primary" title="编辑"><i
+                                                    class="iconfont icon-bianji"></i>编辑</a>
+                                            <button onclick="del(<%=article.id%>)" class="btn-link text-danger p-0 border-0 bg-transparent"
+                                                title="删除"><i class="iconfont icon-delete"></i>删除</button>
+                                            </td>
+                                        </tr>
+                                       <% }) %> 
+                                    </tbody>
+                                </table>
+                                <nav class="d-flex justify-content-between border-top pt-3 px-3">
+                                    <div class="align-self-center">共 <%= page.count  %>  条 / 共 <%= page.total %>  页 / 第 <%= page.p %>  页</div>
+                                    <ul class="pagination mb-0">
+                                        <% if (page.p!=1) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/article?p=<%= page.p-1 %>&category_id=<%= category_id %>&hot=<%= hot %>">上一页</a>
+                                            </li>
+                                            <% } %>
+                                            <% for( let index = 1; index <= page.total; index++ ) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/article?p=<%= index %>&category_id=<%= category_id %>&hot=<%= hot %>"><%= index %></a>
+                                            </li>
+                                            <% } %>
+                                            <% if (page.p != page.total) { %>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="/admin/article?p=<%= parseInt(page.p)+1 %>&category_id=<%= category_id %>&hot=<%= hot %>">下一页</a>
+                                            </li>
+                                            <% } %>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <!-- BootStrap占位图片生成器 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>  
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.5.12/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
+    <script src="/admin/js/public.js"></script>
+    <script>
+        function sethot(id, hot) {
+            $.get('/admin/article/sethot', { id: id, hot: hot ? 1 : 0 }, function (res) {
+                if (res.code == 1) {
+                    showToasts('成功', '设置热门成功')
+                } else {
+                    showToasts('失败', '设置热门失败')
+                }
+            })
+        }
+
+        function del(id) {
+            $.getJSON('/admin/article/del', { id: id }, function (res) {
+                if (res.code == 1) {
+                    showToasts('成功', '删除成功')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 5000)
+                } else {
+                    showToasts('失败', '删除失败')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

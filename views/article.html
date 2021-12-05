@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <title>文章阅读</title>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/layui/css/layui.css" />
+    <link rel="stylesheet" href="/css/master.css" />
+    <link rel="stylesheet" href="/css/gloable.css" />
+    <link rel="stylesheet" href="/css/nprogress.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+</head>
+<style>
+    .article-item .time {
+        top: 44px;
+    }
+    .search .search-wrap .search-icon {
+        width: 36px;
+        height: 31px;
+        border-radius: 34%;
+    }
+    .fang{
+      text-align: center;
+    }
+    .blog-user {
+       right: -80px;
+       font-size: 15px;
+    } 
+    .fang1{
+      list-style: none;
+        line-height: 61px;
+        float: left;
+        /* border: 13px; */
+        font-size: 15px;
+        padding: 0px 35px 0px 33px;
+    }
+    .fang2{
+      list-style: none;
+        line-height: 61px;
+        float: left;
+        /* border: 13px; */
+        font-size: 15px;
+        padding: 0px 110px 0px 9px;
+    }
+    .tang{
+      color: black;
+    }
+    .tang:hover{
+    color: #6bc30d;
+    }  
+    *{
+    color: #000000;
+    }
+    </style>
+    </style>
+    <body>
+        <div class="header">
+        </div>
+        <header class="gird-header">
+            <div class="header-fixed">
+                <div class="header-inner">
+                    <a href="javascript:void(0)" class="header-logo" id="logo">Mr.Blog</a>
+                    <nav class="nav" id="nav">
+                        <ul>
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/register">博客首页<span class="sr-only">(current)</span></a></li>
+                            <li><a href="/message">留言</a></li>
+                            <li><a href="/diary">日志</a></li>
+                            <li><a href="/link">友链</a></li>
+                            <li><a href="/guang">关于</a></li>
+                        </ul>
+                        
+                    </nav>
+                           <% if (user) { %>
+                            <a href="#" class="blog-user">
+                              <li><%=user.username%></li>
+                           <ul class="blog-user">
+                            <li class="fang1"><a href="/admin" class="tang">个人中心</a></li>
+                            <li class="fang2"><a href="/user/logout" class="tang">退出</a></li>
+                            </ul>
+                          </a>
+                            <% } else { %>
+                           <a href="/login" class="blog-user">
+                            <i class="#">登录</i>
+                            </a>
+                        <% } %>
+                        <a class="phone-menu">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </a>
+                </div>
+            </div>
+        </header>
+    <div class="doc-container" id="doc-container">
+        <div class="container-fixed">
+                <div class="inner">
+                    <div class="col-content" style="width:100%">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/register">首页</a></li>
+                                <li class="breadcrumb-item"><a href="/article/list/<%=article.category_id%>"><%=article.name%></a></li>
+                            <li class="breadcrumb-item active"><%=article.title%></li>
+                        </ol>
+                    </nav>
+                    <article class="article-list">
+                        <input type="hidden" value="@Model.BlogTypeID" id="blogtypeid" />
+                        <section class="article-item">
+                            <aside class="title" style="line-height:1.5;">
+                                <h4><%=article.title%></h4>
+                                <p class="fc-grey fs-14">
+                                    <small>
+                                        作者：<a href="javascript:void(0)" target="_blank" class="fc-link">帅哥</a>
+                                    </small>
+                                    <small class="ml10">点击数量：<i class="readcount"><%=article.hits%></i></small>
+                                    <small class="ml10">更新于 <label><%=article.time.toLocaleString()%></label> </small>
+                                </p>
+                            </aside>
+                            <div class="time mt10" style="padding-bottom:0;">
+                                <div class="day"></div>       
+								<span class="month fs-18"><%= article.time.toLocaleString() %></span>       
+								<div class="year fs-18 ml10"></div>
+                            </div>
+                            <div class="content artiledetail" style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
+                                <div class="card-body"><%-article.content%></div>
+                                <div class="card-footer bg-white border-0">
+                                    <% tabs.forEach(tab => { %>
+                                        <span class="badge badge-pill"><%=tab.name%> </span>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                                <div class="copyright mt20">
+                                    <p class="f-toe fc-black">
+                                        非特殊说明，本文版权归 本人 所有，转载请注明出处.
+                                    </p>
+                                    <p class="f-toe">
+                                        本文标题：
+                                        <a href="javascript:void(0)" class="r-title"><%=article.title%></a>
+                                    </p>
+                                    <p class="f-toe">
+                                        本文网址：
+                                        <a href="#">https://www.yanshisan.cn/Blog/Read/7</a>
+                                    </p>
+                                </div>
+                                <div id="aplayer" style="margin:5px 0"></div>
+                                <nav>
+                                    <ul class="pagination mt-3">
+                                        <% if (prev) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/article/<%=prev.id%>">上一篇：<%=prev.title%></a>
+                                        </li>
+                                        <% } %>
+                                        <% if (next) { %>
+                                        <li class="page-item ml-auto">
+                                            <a class="page-link" href="/article/<%=next.id%>">下一篇：<%=next.title%></a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                                <ol class="b-relation"></ol>
+                            </div>
+                            <div class="bdsharebuttonbox share" data-tag="share_1">
+                                <!-- <ul>
+                                    <li class="f-praise"><span><a class="s-praise"></a></span></li>
+                                    <li class="f-weinxi"><a class="s-weinxi" data-cmd="weixin"></a></li>
+                                    <li class="f-sina"><a class="s-sina" data-cmd="tsina"></a></li>
+                                    <li class="f-qq" href="#"><i class="fa fa-qq"></i></li>
+                                    <li class="f-qzone"><a class="s-qzone" data-cmd="qzone"></a></li>
+                                </ul> -->
+                            </div>
+                            <div class="f-cb"></div>
+                            <div class="mt20 f-fwn fs-24 fc-grey comment" style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
+                            </div>
+                            <fieldset class="layui-elem-field layui-field-title">
+                                <legend>发表评论</legend>
+                                <div class="layui-field-box">
+                                    <div class="leavemessage" style="text-align:initial">
+                                        <form class="layui-form blog-editor" action="">
+                                            <input type="hidden" name="articleid" id="articleid" value="@Model.ID">
+                                            <div class="layui-form-item">
+                                                <textarea name="editorContent" lay-verify="content" id="remarkEditor" placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <button class="layui-btn" lay-submit="formLeaveMessage" lay-filter="formLeaveMessage">提交留言</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <ul class="blog-comment" id="blog-comment"></ul>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                        <a href="#" class="qq" target="_blank" ><i class="fa fa-qq"></i></a>
+                        <a href="#" class="email" target="_blank" ><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                        Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.3.1.3 蜀ICP备18008600号
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/layui/layui.js"></script>
+    <script src="/js/yss/gloable.js"></script>
+    <script src="/js/plugins/nprogress.js"></script>
+    <script src="/js/pagecomment.js"></script>
+    <script>NProgress.start();</script>
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+</body>
+</html>
