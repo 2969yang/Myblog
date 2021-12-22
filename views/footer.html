@@ -1,82 +1,29 @@
-<footer class="bg-dark p-3 mt-3  text-center text-secondary small">
-    <a href="#" class="text-secondary small">返回顶部</a>
+<footer class="grid-footer">
+    <div class="footer-fixed">
+        <div class="copyright">
+            <div class="info">
+                <div class="contact">
+                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://wpa.qq.com/msgrd?v=3&uin=2541466702&site=qq&menu=yes" class="qq" target="_blank" title="930054439"><i class="fa fa-qq"></i></a>
+                    <a href="#" class="email" target="_blank" title="930054439@qq.com"><i class="fa fa-envelope"></i></a>
+                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                </div>
+                <p class="mt05">
+                    Copyright &copy; 2020-2021 小小人物 的个人博客系统 粤ICP备00000000号
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
-<script src="/js/public.js"></script>
-
-<script>
-      //1. 获取元素
-  var sliderbar = document.querySelector('.slider-bar');
-  var banner = document.querySelector('.banner');
-  // banner.offestTop 就是被卷去头部的大小 一定要写到滚动的外面
-  var bannerTop = banner.offsetTop
-      // 当我们侧边栏固定定位之后应该变化的数值
-  var sliderbarTop = sliderbar.offsetTop - bannerTop;
-  // 获取main 主体元素
-  var main = document.querySelector('.main');
-  var goBack = document.querySelector('.goBack');
-  var mainTop = main.offsetTop;
-  // 2. 页面滚动事件 scroll
-  document.addEventListener('scroll', function() {
-          // console.log(11);
-          // window.pageYOffset 页面被卷去的头部
-          // console.log(window.pageYOffset);
-          // 3 .当我们页面被卷去的头部大于等于了 172 此时 侧边栏就要改为固定定位
-          if (window.pageYOffset >= bannerTop) {
-              sliderbar.style.position = 'fixed';
-              sliderbar.style.top = sliderbarTop + 'px';
-          } else {
-              sliderbar.style.position = 'absolute';
-              sliderbar.style.top = '400px';
-          }
-          // 4. 当我们页面滚动到main盒子，就显示 goback模块
-          if (window.pageYOffset >= mainTop) {
-              goBack.style.display = 'block';
-          } else {
-              goBack.style.display = 'none';
-          }
-
-      })
-      // 3. 当我们点击了返回顶部模块，就让窗口滚动的页面的最上方
-  goBack.addEventListener('click', function() {
-      // 里面的x和y 不跟单位的 直接写数字即可
-      // window.scroll(0, 0);
-      // 因为是窗口滚动 所以对象是window
-      animate(window, 0);
-  });
-  // 动画函数
-  function animate(obj, target, callback) {
-      // console.log(callback);  callback = function() {}  调用的时候 callback()
-
-      // 先清除以前的定时器，只保留当前的一个定时器执行
-      clearInterval(obj.timer);
-      obj.timer = setInterval(function() {
-          // 步长值写到定时器的里面
-          // 把我们步长值改为整数 不要出现小数的问题
-          // var step = Math.ceil((target - obj.offsetLeft) / 10);
-          var step = (target - window.pageYOffset) / 10;
-          step = step > 0 ? Math.ceil(step) : Math.floor(step);
-          if (window.pageYOffset == target) {
-              // 停止动画 本质是停止定时器
-              clearInterval(obj.timer);
-              // 回调函数写到定时器结束里面
-              // if (callback) {
-              //     // 调用函数
-              //     callback();
-              // }
-              callback && callback();
-          }
-          // 把每次加1 这个步长值改为一个慢慢变小的值  步长公式：(目标值 - 现在的位置) / 10
-          // obj.style.left = window.pageYOffset + step + 'px';
-          window.scroll(0, window.pageYOffset + step);
-      }, 15);
-  }
+<script src="layui/layui.js"></script>
+<script src="js/yss/gloable.js"></script>
+<script src="js/plugins/nprogress.js"></script>
+<script>NProgress.start();</script>
+ <script src="js/yss/article.js"></script>
+<script> 
+    window.onload = function () {
+        NProgress.done();
+    };
 </script>
 </body>
-
 </html>

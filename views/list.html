@@ -66,7 +66,7 @@
                     <nav class="nav" id="nav">
                         <ul>
                             <li><a href="/">首页</a></li>
-                            <li><a href="/register">博客首页<span class="sr-only">(current)</span></a></li>
+                            <li><a href="/register">博客<span class="sr-only">(current)</span></a></li>
                             <li><a href="/message">留言</a></li>
                             <li><a href="/diary">日志</a></li>
                             <li><a href="/link">友链</a></li>
@@ -182,21 +182,23 @@
 					<!--遮罩-->
 					<div class="blog-mask animated layui-hide"></div>
 					<div class="other-item">
-					    <h5 class="other-item-title">热门文章</h5>
+					    <h5 class="other-item-title">标题下的文章</h5>
 					    <div class="inner">
 					        <ul class="hot-list-article">
-							
+                                <% articles.forEach(article => { %>
+                                    <li><a href="/article/<%=article.id%>"><%= article.title %></a>   </li>
+                                <% }) %>
 							</ul>
 					    </div>
 					</div>
-					<div class="other-item">
+					<!-- <div class="other-item">
 					    <h5 class="other-item-title">最近访客</h5>
 					    <div class="inner">
 					        <dl class="vistor">
 					                <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/72388EA977643E8F97111222675720B1/100"><cite>Anonymous</cite></a></dd>
 					        </dl>
 					    </div>
-					</div>
+					</div> -->
 		        </div>
 		    </div>
 		</div>
@@ -212,7 +214,7 @@
                         <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
                     </div>
                     <p class="mt05">
-                        Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.1.0.0 蜀ICP备18008600号
+                        Copyright &copy; 2020-2021 小小人物 的个人博客系统 粤ICP备00000000号
                     </p>
                 </div>
             </div>

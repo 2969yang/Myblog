@@ -67,7 +67,7 @@
                     <nav class="nav" id="nav">
                         <ul>
                             <li><a href="/">首页</a></li>
-                            <li><a href="/register">博客首页<span class="sr-only">(current)</span></a></li>
+                            <li><a href="/register">博客<span class="sr-only">(current)</span></a></li>
                             <li><a href="/message">留言</a></li>
                             <li><a href="/diary">日志</a></li>
                             <li><a href="/link">友链</a></li>
@@ -143,7 +143,7 @@
                                     </p>
                                     <p class="f-toe">
                                         本文网址：
-                                        <a href="#">https://www.yanshisan.cn/Blog/Read/7</a>
+                                        <a href="/article/list/<%=article.category_id%>">http://127.0.0.1:3000/article/<%=article.category_id%></a>
                                     </p>
                                 </div>
                                 <div id="aplayer" style="margin:5px 0"></div>
@@ -162,15 +162,18 @@
                                     </ul>
                                 </nav>
                                 <ol class="b-relation"></ol>
+                                
                             </div>
                             <div class="bdsharebuttonbox share" data-tag="share_1">
-                                <!-- <ul>
+                                <ul>
+                                    <br>
+                                <br>
                                     <li class="f-praise"><span><a class="s-praise"></a></span></li>
                                     <li class="f-weinxi"><a class="s-weinxi" data-cmd="weixin"></a></li>
                                     <li class="f-sina"><a class="s-sina" data-cmd="tsina"></a></li>
                                     <li class="f-qq" href="#"><i class="fa fa-qq"></i></li>
                                     <li class="f-qzone"><a class="s-qzone" data-cmd="qzone"></a></li>
-                                </ul> -->
+                                </ul>
                             </div>
                             <div class="f-cb"></div>
                             <div class="mt20 f-fwn fs-24 fc-grey comment" style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
@@ -209,7 +212,7 @@
                         <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
                     </div>
                     <p class="mt05">
-                        Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.3.1.3 蜀ICP备18008600号
+                        Copyright &copy; 2020-2021 小小人物 的个人博客系统 粤ICP备00000000号
                     </p>
                 </div>
             </div>
@@ -219,11 +222,4 @@
     <script src="/js/yss/gloable.js"></script>
     <script src="/js/plugins/nprogress.js"></script>
     <script src="/js/pagecomment.js"></script>
-    <script>NProgress.start();</script>
-    <script> 
-        window.onload = function () {
-            NProgress.done();
-        };
-    </script>
-</body>
-</html>
+

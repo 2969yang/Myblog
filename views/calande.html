@@ -1,0 +1,229 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <<style>
+        *{margin: 0;padding: 0;}
+        .container{
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vw;
+        }
+        header{
+            width: 100%;
+            height: 80px;
+            text-align: center;
+            line-height: 66px;
+            border-bottom: 2px solid #ccc;
+            background-color: pink;
+        }
+        section{
+            flex: 1;
+        }
+        section ul{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        section ul li{
+            width: 40%;
+            height: 160px;
+            padding: 10px;
+        }
+        section ul li img{
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+    <style>
+        .mark{
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 90;
+            width: 100vw;
+            height: 100vw;
+            background-color: rgba(0,0,0,.5);
+        }
+    </style> -->
+    <!-- <style>
+       
+        .mark{
+            width: 0;
+            height: 0;
+            border-width: 100px;
+            border-style: solid;
+            border-color: transparent #0099cc transparent transparent;
+            transform: rotate(90deg);
+        }
+    </style> -->
+<!-- </head>
+<body> -->
+    <!-- <input type="text">
+    <button>发送</button>
+    </div>
+    <script>
+        var btn = document.querySelector('button');
+        btn.addEventListener('click', function () {
+            btn.disabled = true;
+            var times = 5;
+            var timer = setInterval(function () {
+                if (times == 0) {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    btn.innerHTML = '发送';
+                } else {
+                    btn.innerHTML = '还剩' + times + '秒';
+                    times--;
+                }
+            }, 1000)
+        })
+    </script> -->
+    <!-- <div class="mark" id="mark"></div> -->
+    <!-- <a href="https://fanyi.baidu.com/translate?aldtype=16047&query=&keyfrom=baidu&smartresult=dict&lang=auto2zhbai#en/zh/marked">小路线</a> -->
+<!-- </span></div>  -->
+
+<!-- <div style="filter:alpha(opacity=50);background:#ffffff;width:600"><span style="position:relative;color:yellow">图层背景半透明，字体颜色不半透明</span></div>  -->
+    <!-- <script>
+
+    var a= 123
+    var obj = {}
+
+    var person = {
+        name: '爱菊十一个字',
+        hobby: ['学习',['看电影', 'shopping'], '跑步']
+    }
+    var person1 = person
+    person1.name = '王孝行'
+
+    person1.hobby[0] = '王刷'
+    console.log(person);
+    console.log(person1);
+
+    function shallowCopy(obj) {
+        var target = {}
+        for(var i in obj){
+            if(obj.hasOwnProperty){
+                target[i] = obj[i]
+            }
+        }
+        return target
+    }
+    var person1 = shallowCopy(person)
+    person1.name = '王孝行'
+
+    person1.hobby[0] = '王刷'
+    console.log(person);
+    console.log(person1);
+    </script> -->
+
+
+
+    <!-- <script>
+        var mark = document.getElementById('mark');
+        mark.ontouchstart = function(e){
+            e.preventDefault();
+            mark.style.display = 'none'
+        }
+    </script> -->
+<!-- 
+</body>
+</html> --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* *{
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        } */
+        .aum {
+            width: 300px;
+            height: 320px;
+            border: 1px solid #f3f3f3;
+            margin: 0px 0px 0px -20px;
+            box-sizing: border-box;
+        }
+        .henden{
+            height: 80px;
+            width: 400px;
+
+        }
+        .boderf {
+            height: 100px;
+            background-color: grey;
+            width: 299px;
+        }
+        .bottomg {
+            height: 163px;
+            width: 299px;
+        }
+        #year {
+            line-height: 74px;
+            font-size: 25px;
+            /* margin: 0 auto; */
+            margin: 0px 0px 0px -90px;
+        }
+        #day {
+            line-height: 100px;
+            font-size: 72px;
+        }
+        p{
+            font-weight: 700;
+            line-height: 80px;
+            font-size: 40px;
+        }
+        #time {
+            line-height: 54px;
+            font-size: 23px;
+        }
+    </style>
+</head>
+<body>
+<div class="aum">
+    <div class="henden"><h1 id="year"></h1></div>
+    <div class="boderf"><h1 id="day"></h1></div>
+    <div class="bottomg">
+        <p ></p>
+        <h1 id="time"></h1>
+    </div>
+</div>
+<script>
+    //万年历
+    var year = document.getElementById('year');
+    var day = document.getElementById('day');
+    var time = document.getElementById('time');
+    var p = document.querySelector('p');
+    //解决刚打开网页上来没有内容。
+    showTime();
+    //将日期属性设置到元素中，每隔一秒执行一次。
+    setInterval(showTime,1000);
+    function showTime() {
+        var date=new Date();
+        var month=date.getMonth()+1;
+        var minutes=date.getSeconds();
+        //分  2位显式
+        if (minutes<10){
+            minutes='0'+minutes
+        }
+        year.innerHTML=date.getFullYear()+'年'+month+'月';
+        day.innerHTML=date.getDate();
+        p.innerHTML=(getWeek(date.getDay()));
+        time.innerHTML=date.getHours()+'时'+date.getMinutes()+'分'+minutes+'秒';
+        function getWeek(week) {
+            var arr=['日','一','二','三','四','五','六'];
+            return '星期'+arr[week];
+        }
+    }
+</script>
+</body>
+</html>
